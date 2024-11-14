@@ -13,42 +13,56 @@ bool isCardValid(int digits[], int size);
 
 int main()
 {
+    int nums[9];
     int card_num;
-    int digit;
     int count = 0;
-    int sum1 = 0;
-    int sum2 = 0;
 
-    cout << "Please enter 8-digit card number: ";
+    cout << "Please insert 8-digit card number: ";
     cin >> card_num;
 
-    while (card_num != 0)
+    for (int i = 0; i < 8; i++)
     {
-        digit = card_num % 10;
-        count++;
+        nums[8-i] = card_num % 10;
         card_num /= 10;
-
-        if (count % 2 != 0)
-        {
-            sum1 = sum1 + digit;
-        }
-        else
-        {
-            sum2 = sum2 + ((digit * 2) / 10) + ((digit * 2) % 10);
-        }
+        count++;
     }
-    int total = sum1 + sum2;
-    if (total % 10 == 0)
+
+    if(isCardValid(nums, count) == true )
     {
-        cout << "Card is valid." << endl;
+        cout << "Card is Valid." << endl;
     }
     else
     {
-        cout << "Card is invalid." << endl;
+        cout << "Card is Invalid." << endl;
     }
+
+
 }
 
 bool isCardValid(int digits[], int size)
 {
+    int sum1 = 0;
+    int sum2 = 0;
+    int dub;
 
-}
+    for(int i = 0; i < size; i++)
+    {
+       if (i%2 == 0)
+       {
+            sum1 += digits[size-i];
+       }
+       else
+       {
+            dub = digits[size-i]*2;
+            sum2 += (dub%10) + (dub/10);
+       }
+    }
+    if((sum1+sum2)%10 == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+} 
